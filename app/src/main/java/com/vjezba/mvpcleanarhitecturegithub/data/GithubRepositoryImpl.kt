@@ -10,10 +10,10 @@ import com.vjezba.mvpcleanarhitecturegithub.data.model.mapToRepository
 
 class GithubRepositoryImpl(private val serviceProvider: ServiceProvider) : GithubRepository {
 
-    override suspend fun getUserRepo(userRepoString: String): Result<MainResponse> {
+    override suspend fun getUserRepo(users: String): Result<MainResponse> {
         return try {
             val githubService = serviceProvider.getGithubService()
-            val mainResponseDAO = githubService.getUserRepoAsync(userRepoString, 0, 100).await()
+            val mainResponseDAO = githubService.getUserRepoAsync(users, 0, 100).await()
             val users = mainResponseDAO.mapToMainReponse()//.map { it.mapToMainReponse() }
             Result.Success(users)
         } catch (e: Throwable) {
@@ -21,10 +21,10 @@ class GithubRepositoryImpl(private val serviceProvider: ServiceProvider) : Githu
         }
     }
 
-    override suspend fun getRepositories(userRepoString: String): Result<Repository> {
+    override suspend fun getRepositories(repository: String, sort: String, order: String, page: Int, pageNumber: Int): Result<Repository> {
         return try {
             val githubService = serviceProvider.getGithubService()
-            val mainResponseDAO = githubService.getRepositoryAsync(userRepoString, 0, 100).await()
+            val mainResponseDAO = githubService.getRepositoryAsync(repository, sort, order, page, pageNumber).await()
             val repository = mainResponseDAO.mapToRepository()//.map { it.mapToMainReponse() }
             Result.Success(repository)
         } catch (e: Throwable) {

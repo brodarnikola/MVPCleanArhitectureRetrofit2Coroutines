@@ -12,6 +12,9 @@ import kotlin.coroutines.CoroutineContext
 class RepositoryPresenter(private val githubInteractor: GithubInteractor) : GithubContract.RepositoryPresenter,
     CoroutineScope {
 
+    var page: Int = 0
+    var pageNumber: Int = 100
+
     private var view: GithubContract.RepositoryView? = null
 
     override val coroutineContext: CoroutineContext
@@ -23,16 +26,20 @@ class RepositoryPresenter(private val githubInteractor: GithubInteractor) : Gith
         this.view = view
     }
 
-    override fun getRepositories(repository: String) {
+    override fun getRepositories(repository: String, sort: String, order: String) {
         job = launch {
-            getRepositoriesAsync(repository)
+            getRepositoriesAsync(repository, sort, order)
         }
     }
 
-    suspend fun getRepositoriesAsync(repositories: String) {
+    suspend fun getRepositoriesAsync(repository: String, sort: String, order: String) {
         view?.showProgress()
-        when (val result = githubInteractor.getRepositories(repositories)) {
-            is Result.Success -> view?.setRepository(result.data/* .map { it.mapToMainReponseItem() }*/)
+
+        when (val result = githubInteractor.getRepositories(repository, sort, order, page, pageNumber)) {
+            is Result.Success -> {
+                view?.setRepository(result.data)
+                page++
+            }
             is Result.Error ->
                 result.throwable.message?.let {
                     view?.showMessage(it)

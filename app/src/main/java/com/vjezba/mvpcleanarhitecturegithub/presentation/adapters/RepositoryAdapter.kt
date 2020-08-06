@@ -22,9 +22,9 @@ class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userLi
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val fullName: TextView = itemView.textFullName
         val photo: ImageView = itemView.imagePhoto
         val layoutParent: ConstraintLayout = itemView.parentLayout
+        val fullName: TextView = itemView.textFullName
         val repositoryName: TextView = itemView.textRepositoryName
     }
 
@@ -41,8 +41,8 @@ class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userLi
                 .resize(40, 40).centerCrop()
                 .into(holder.photo)
 
-        holder.repositoryName.text = user.full_name
-        holder.fullName.text = user.description
+        holder.fullName.text = user.full_name
+        holder.repositoryName.text = user.description
         holder.layoutParent.setOnClickListener{
             loadIntet()
         }

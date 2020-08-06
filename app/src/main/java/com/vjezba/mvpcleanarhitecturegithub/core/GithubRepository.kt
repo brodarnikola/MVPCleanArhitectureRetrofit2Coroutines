@@ -7,5 +7,5 @@ interface GithubRepository {
 
     suspend fun getUserRepo(userRepoString: String): Result<MainResponse>
 
-    suspend fun getRepositories(userRepoString: String): Result<Repository>
+    suspend fun getRepositories(repository: String, sort: String, order: String, page: Int, pageNumber: Int): Result<Repository>
 }

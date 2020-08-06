@@ -51,7 +51,7 @@ class SearchRepositoryDialog constructor(val repositoryActivty: RepositoriesActi
                     }
 
                     val order = when {
-                        resources.getResourceEntryName(radioSort.checkedRadioButtonId) == "asc" -> "asc"
+                        resources.getResourceEntryName(radioOrder.checkedRadioButtonId) == "asc" -> "asc"
                         else -> "desc"
                     }
 

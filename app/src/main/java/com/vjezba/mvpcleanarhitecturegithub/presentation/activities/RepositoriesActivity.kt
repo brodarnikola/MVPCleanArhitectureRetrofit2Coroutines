@@ -35,10 +35,9 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
         }
 
         btnFind.setOnClickListener {
-
-            val choseEPaperTypeDialog =
+            val searchRepositoryDialog =
                 SearchRepositoryDialog(this)
-            choseEPaperTypeDialog.show(supportFragmentManager,
+            searchRepositoryDialog.show(supportFragmentManager,
                 ""
             )
         }
@@ -65,7 +64,7 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
         if( repositoryAdapter.getItems().isNotEmpty() ) {
             repositoryAdapter.getItems().clear()
         }
-        githubPresenter.getRepositories(keyword)
+        githubPresenter.getRepositories(keyword, sort, order)
     }
 
 

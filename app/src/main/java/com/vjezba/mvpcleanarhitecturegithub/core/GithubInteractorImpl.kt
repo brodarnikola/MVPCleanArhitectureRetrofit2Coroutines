@@ -9,7 +9,7 @@ class GithubInteractorImpl(private val githubRepository: GithubRepository) : Git
         return githubRepository.getUserRepo(userRepoString)
     }
 
-    override suspend fun getRepositories(repository: String): Result<Repository> {
-        return githubRepository.getRepositories(repository)
+    override suspend fun getRepositories(repository: String, sort: String, order: String, page: Int, pageNumber: Int): Result<Repository> {
+        return  githubRepository.getRepositories(repository, sort, order, page, pageNumber)
     }
 }

@@ -17,6 +17,7 @@ interface GithubService {
 
     @GET("search/repositories")
     @Headers("Content-Type: application/json")
-    fun getRepositoryAsync(@Query("q") q: String, @Query("page") page: Int, @Query("per_page") perPage: Int): Deferred<RepositoryDAO>
+    fun getRepositoryAsync(@Query("q") q: String, @Query("sort") sort: String, @Query("order") order: String,
+                           @Query("page") page:Int, @Query("per_page") pageNumber: Int): Deferred<RepositoryDAO>
 
 }
