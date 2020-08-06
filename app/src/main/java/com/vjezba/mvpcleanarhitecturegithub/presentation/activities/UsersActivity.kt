@@ -1,4 +1,4 @@
-package com.vjezba.mvpcleanarhitecturegithub.presentation
+package com.vjezba.mvpcleanarhitecturegithub.presentation.activities
 
 import android.os.Bundle
 import android.widget.Toast
@@ -9,7 +9,9 @@ import com.vjezba.mvpcleanarhitecturegithub.R
 import com.vjezba.mvpcleanarhitecturegithub.core.GithubContract
 import com.vjezba.mvpcleanarhitecturegithub.core.entities.MainResponse
 import com.vjezba.mvpcleanarhitecturegithub.core.entities.UserRepo
-import com.vjezba.mvpcleanarhitecturegithub.presentation.list.UsersAdapter
+import com.vjezba.mvpcleanarhitecturegithub.presentation.adapters.UsersAdapter
+import com.vjezba.mvpcleanarhitecturegithub.presentation.hide
+import com.vjezba.mvpcleanarhitecturegithub.presentation.show
 import kotlinx.android.synthetic.main.activity_user_details.*
 import org.koin.android.ext.android.inject
 

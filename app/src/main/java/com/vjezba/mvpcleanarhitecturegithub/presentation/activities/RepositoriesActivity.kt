@@ -1,4 +1,4 @@
-package com.vjezba.mvpcleanarhitecturegithub.presentation
+package com.vjezba.mvpcleanarhitecturegithub.presentation.activities
 
 import android.os.Bundle
 import android.widget.Toast
@@ -9,11 +9,16 @@ import com.vjezba.mvpcleanarhitecturegithub.R
 import com.vjezba.mvpcleanarhitecturegithub.core.GithubContract
 import com.vjezba.mvpcleanarhitecturegithub.core.entities.Repository
 import com.vjezba.mvpcleanarhitecturegithub.core.entities.RepositoryDetails
-import com.vjezba.mvpcleanarhitecturegithub.presentation.list.RepositoryAdapter
+import com.vjezba.mvpcleanarhitecturegithub.presentation.`interface`.RepositorySearchInterface
+import com.vjezba.mvpcleanarhitecturegithub.presentation.adapters.RepositoryAdapter
+import com.vjezba.mvpcleanarhitecturegithub.presentation.dialog.SearchRepositoryDialog
+import com.vjezba.mvpcleanarhitecturegithub.presentation.hide
+import com.vjezba.mvpcleanarhitecturegithub.presentation.show
 import kotlinx.android.synthetic.main.activity_repositories.*
 import org.koin.android.ext.android.inject
 
-class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView {
+class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
+    RepositorySearchInterface {
 
     private val githubPresenter: GithubContract.RepositoryPresenter by inject()
     private lateinit var repositoryAdapter: RepositoryAdapter
@@ -30,10 +35,12 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView 
         }
 
         btnFind.setOnClickListener {
-            if( repositoryAdapter.getItems().isNotEmpty() ) {
-                repositoryAdapter.getItems().clear()
-            }
-            githubPresenter.getRepositories(etInsertText.text.toString())
+
+            val choseEPaperTypeDialog =
+                SearchRepositoryDialog(this)
+            choseEPaperTypeDialog.show(supportFragmentManager,
+                ""
+            )
         }
     }
 
@@ -52,4 +59,14 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView 
     override fun hideProgress() {
         progressBar.hide()
     }
+
+    override fun startSearch(keyword: String, sort: String, order: String) {
+        print("Keyword is: ${keyword}")
+        if( repositoryAdapter.getItems().isNotEmpty() ) {
+            repositoryAdapter.getItems().clear()
+        }
+        githubPresenter.getRepositories(keyword)
+    }
+
+
 }

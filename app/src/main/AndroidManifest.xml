@@ -22,10 +22,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.RepositoriesActivity"
+        <activity android:name=".presentation.activities.RepositoriesActivity"
             android:theme="@style/AppTheme" ></activity>
         <activity
-            android:name=".presentation.UsersActivity"
+            android:name=".presentation.activities.UsersActivity"
             android:theme="@style/AppTheme" />
     </application>
 

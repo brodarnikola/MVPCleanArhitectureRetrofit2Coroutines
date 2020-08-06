@@ -1,4 +1,4 @@
-package com.vjezba.mvpcleanarhitecturegithub.presentation.list
+package com.vjezba.mvpcleanarhitecturegithub.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
