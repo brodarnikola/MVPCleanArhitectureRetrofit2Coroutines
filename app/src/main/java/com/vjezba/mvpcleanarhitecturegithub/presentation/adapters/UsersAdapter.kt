@@ -22,10 +22,10 @@ class UsersAdapter(var userList: MutableList<UserRepo>, var userListFiltered: Mu
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val fullName: TextView = itemView.textFullName
+        val fullName: TextView = itemView.textRepositoryName
         val photo: ImageView = itemView.imagePhoto
         val layoutParent: ConstraintLayout = itemView.parentLayout
-        val repositoryName: TextView = itemView.textRepositoryName
+        val repositoryName: TextView = itemView.textDescription
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

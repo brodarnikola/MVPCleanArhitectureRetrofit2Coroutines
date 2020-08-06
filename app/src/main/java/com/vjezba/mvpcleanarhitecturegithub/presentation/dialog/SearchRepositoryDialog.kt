@@ -55,7 +55,7 @@ class SearchRepositoryDialog constructor(val repositoryActivty: RepositoriesActi
                         else -> "desc"
                     }
 
-                    repositoryActivty.startSearch(etInsertText.text.toString(), sort, order)
+                    repositoryActivty.startSearch(etInsertText.text.toString(), sort, order, false)
                     dismiss()
                 }
             }

@@ -12,8 +12,8 @@ import kotlin.coroutines.CoroutineContext
 class RepositoryPresenter(private val githubInteractor: GithubInteractor) : GithubContract.RepositoryPresenter,
     CoroutineScope {
 
-    var page: Int = 0
-    var pageNumber: Int = 100
+    var page: Int = 1
+    var pageNumber: Int = 15
 
     private var view: GithubContract.RepositoryView? = null
 

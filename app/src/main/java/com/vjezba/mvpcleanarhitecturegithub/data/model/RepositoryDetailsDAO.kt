@@ -9,8 +9,8 @@ data class RepositoryDetailsDAO(
     val id: Int = 0,
     @SerializedName("owner")
     val owner: RepositoryOwnerDetails = RepositoryOwnerDetails(""),
-    @SerializedName("full_name")
-    val full_name: String = "",
+    @SerializedName("name")
+    val name: String = "",
     @SerializedName("description")
     val description: String = "",
     @SerializedName("stargazers_count")
@@ -24,5 +24,5 @@ data class RepositoryDetailsDAO(
 
 
 fun RepositoryDetailsDAO.mapToRepositoryDetails(): RepositoryDetails {
-    return RepositoryDetails(id, owner, full_name, description, stargazers_count, watchers_count, forks, open_issues)
+    return RepositoryDetails(id, owner, name, description, stargazers_count, watchers_count, forks, open_issues)
 }

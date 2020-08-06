@@ -52,7 +52,7 @@
             android:drawablePadding="5dp"
             android:background="@drawable/input_white"
             android:textColorHint="@android:color/darker_gray"
-            android:hint="Search github users, repos"
+            android:hint="Search github repositories"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@android:color/background_dark"

@@ -3,8 +3,6 @@ package com.vjezba.mvpcleanarhitecturegithub.presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -12,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.vjezba.mvpcleanarhitecturegithub.R
 import com.vjezba.mvpcleanarhitecturegithub.core.entities.RepositoryDetails
-import kotlinx.android.synthetic.main.user_list.view.*
+import kotlinx.android.synthetic.main.repository_list.view.*
 
 
-class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userListFiltered: MutableList<RepositoryDetails>) : RecyclerView.Adapter<RepositoryAdapter.ViewHolder>(), Filterable {
+class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userListFiltered: MutableList<RepositoryDetails>) : RecyclerView.Adapter<RepositoryAdapter.ViewHolder>() {
 
     private fun loadIntet() {
 
@@ -24,8 +22,13 @@ class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userLi
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val photo: ImageView = itemView.imagePhoto
         val layoutParent: ConstraintLayout = itemView.parentLayout
-        val fullName: TextView = itemView.textFullName
-        val repositoryName: TextView = itemView.textRepositoryName
+
+        val authorName: TextView = itemView.textAuthorName
+        val fullName: TextView = itemView.textRepositoryName
+        val description: TextView = itemView.textDescription
+        val starGazers: TextView = itemView.textStarGazers
+        val forksCount: TextView = itemView.textForksCount
+        val issueCount: TextView = itemView.textIssueCount
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,13 +39,17 @@ class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userLi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = userListFiltered[position]
 
-        if( user.owner != null )
         Picasso.get().load(user.owner.avatar_url)
                 .resize(40, 40).centerCrop()
                 .into(holder.photo)
 
-        holder.fullName.text = user.full_name
-        holder.repositoryName.text = user.description
+        holder.authorName.text = "Name: " + user.owner.login
+        holder.fullName.text = "Repositoriy: " + user.name
+        holder.description.text = "Description: " + user.description
+        holder.starGazers.text = "Star gazers: " + user.stargazers_count
+        holder.forksCount.text = "Forks count: " + user.forks
+        holder.issueCount.text = "Issue count: " + user.open_issues
+
         holder.layoutParent.setOnClickListener{
             loadIntet()
         }
@@ -60,7 +67,7 @@ class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userLi
 
     fun getItems() = userListFiltered
 
-    fun clear() {
+    /*fun clear() {
         userList.clear()
         userListFiltered.clear()
         notifyDataSetChanged()
@@ -76,11 +83,7 @@ class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userLi
         userList.add(user)
         userListFiltered.add(user)
         notifyDataSetChanged()
-    }
-
-    override fun getFilter(): Filter {
-        TODO("Not yet implemented")
-    }
+    }*/
 
 
 }
