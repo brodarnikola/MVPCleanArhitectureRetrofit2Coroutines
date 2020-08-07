@@ -26,14 +26,17 @@ class RepositoryPresenter(private val githubInteractor: GithubInteractor) : Gith
         this.view = view
     }
 
-    override fun getRepositories(repository: String, sort: String, order: String) {
+    override fun getRepositories(repository: String, sort: String, order: String, showOtherData: Boolean) {
         job = launch {
-            getRepositoriesAsync(repository, sort, order)
+            getRepositoriesAsync(repository, sort, order, showOtherData)
         }
     }
 
-    suspend fun getRepositoriesAsync(repository: String, sort: String, order: String) {
+    suspend fun getRepositoriesAsync(repository: String, sort: String, order: String, showOtherData: Boolean) {
         view?.showProgress()
+
+        if( !showOtherData )
+            page = 1
 
         when (val result = githubInteractor.getRepositories(repository, sort, order, page, pageNumber)) {
             is Result.Success -> {

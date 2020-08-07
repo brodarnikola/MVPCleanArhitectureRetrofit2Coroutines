@@ -162,7 +162,7 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
     }
 
     override fun startSearch(mKeyword: String, mSort: String, mOrder: String, showOtherData: Boolean) {
-        print("Keyword is: ${mKeyword}")
+        System.out.println("Keyword is: ${mKeyword}, sort is: ${mSort}, order is: ${mOrder}")
 
         keyword = mKeyword
         sort = mSort
@@ -173,7 +173,7 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
             repositoryAdapter.getItems().clear()
             repositoryList.clear()
         }
-        githubPresenter.getRepositories(keyword, sort, order)
+        githubPresenter.getRepositories(keyword, sort, order, showOtherData)
     }
 
 

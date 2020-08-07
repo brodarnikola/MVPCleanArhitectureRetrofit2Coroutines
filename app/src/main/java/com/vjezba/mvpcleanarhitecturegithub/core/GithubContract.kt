@@ -28,7 +28,7 @@ interface GithubContract {
 
     interface RepositoryPresenter{
         fun attachView(view: RepositoryView)
-        fun getRepositories(repository: String, sort: String, order: String)
+        fun getRepositories(repository: String, sort: String, order: String, showOtherData: Boolean)
     }
 
     interface Model
