@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.vjezba.domain.entities.Repository
+import com.vjezba.domain.entities.RepositoryDetails
+import com.vjezba.domain.usecase.GithubContract
 import com.vjezba.mvpcleanarhitecturegithub.R
-import com.vjezba.mvpcleanarhitecturegithub.core.GithubContract
-import com.vjezba.mvpcleanarhitecturegithub.core.entities.Repository
-import com.vjezba.mvpcleanarhitecturegithub.core.entities.RepositoryDetails
 import com.vjezba.mvpcleanarhitecturegithub.presentation.`interface`.RepositorySearchInterface
 import com.vjezba.mvpcleanarhitecturegithub.presentation.adapters.RepositoryAdapter
 import com.vjezba.mvpcleanarhitecturegithub.presentation.dialog.DisableUserActionsDialog

@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.vjezba.domain.entities.RepositoryDetails
 import com.vjezba.mvpcleanarhitecturegithub.R
-import com.vjezba.mvpcleanarhitecturegithub.core.entities.RepositoryDetails
 import com.vjezba.mvpcleanarhitecturegithub.presentation.common.ListDiffer
 import kotlinx.android.synthetic.main.repository_list.view.*
 

@@ -5,10 +5,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.vjezba.domain.entities.MainResponse
+import com.vjezba.domain.entities.UserRepo
+import com.vjezba.domain.usecase.GithubContract
 import com.vjezba.mvpcleanarhitecturegithub.R
-import com.vjezba.mvpcleanarhitecturegithub.core.GithubContract
-import com.vjezba.mvpcleanarhitecturegithub.core.entities.MainResponse
-import com.vjezba.mvpcleanarhitecturegithub.core.entities.UserRepo
 import com.vjezba.mvpcleanarhitecturegithub.presentation.adapters.UsersAdapter
 import com.vjezba.mvpcleanarhitecturegithub.presentation.hide
 import com.vjezba.mvpcleanarhitecturegithub.presentation.show

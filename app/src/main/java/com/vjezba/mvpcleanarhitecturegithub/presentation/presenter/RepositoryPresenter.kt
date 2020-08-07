@@ -1,13 +1,13 @@
 package com.vjezba.mvpcleanarhitecturegithub.presentation.presenter
 
-import com.vjezba.mvpcleanarhitecturegithub.core.GithubContract
-import com.vjezba.mvpcleanarhitecturegithub.core.GithubInteractor
-import com.vjezba.mvpcleanarhitecturegithub.core.Result
+import com.vjezba.domain.GithubInteractor
+import com.vjezba.domain.usecase.GithubContract
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
+import com.vjezba.domain.Result
 
 class RepositoryPresenter(private val githubInteractor: GithubInteractor) : GithubContract.RepositoryPresenter,
     CoroutineScope {

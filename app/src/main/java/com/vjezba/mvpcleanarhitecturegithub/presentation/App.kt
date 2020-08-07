@@ -4,8 +4,8 @@ import android.app.Application
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.vjezba.mvpcleanarhitecturegithub.core.coreModule
-import com.vjezba.mvpcleanarhitecturegithub.data.dataModule
+import com.vjezba.data.dataModule
+import com.vjezba.domain.coreModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -29,6 +29,6 @@ fun View.show() {
     this.visibility = View.VISIBLE
 }
 
-fun ViewGroup.inflateLayout(layoutId: Int, attachToRoot: Boolean = false): View {
+/*fun ViewGroup.inflateLayout(layoutId: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
-}
+}*/

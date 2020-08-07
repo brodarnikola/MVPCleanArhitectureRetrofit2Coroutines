@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.vjezba.domain.entities.UserRepo
 import com.vjezba.mvpcleanarhitecturegithub.R
-import com.vjezba.mvpcleanarhitecturegithub.core.entities.UserRepo
 import kotlinx.android.synthetic.main.user_list.view.*
 
 
