@@ -115,7 +115,9 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
     }
 
     private fun setRepositoryDetailsClickListener(repositoryDetails: RepositoryDetails) {
-        // budem pingao
+        val intent = Intent( this, RepositoryDetailsActivity::class.java )
+        intent.putExtra("idRepository", repositoryDetails.id)
+        startActivity(intent)
     }
 
     private fun setUserDetailsClickListener(userDetails: RepositoryOwnerDetails) {
@@ -189,9 +191,9 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
             filterTextEdited = true
             val filters = filterText
             repository.filter { repository ->
-                repository.name.toLowerCase().contains(filters.toLowerCase())
+                repository.name?.toLowerCase()?.contains(filters.toLowerCase()) ?: false
                         || repository.owner.login.toLowerCase().contains(filters.toLowerCase())
-                        || if( repository.description == null ) "".contains(filters.toLowerCase()) else repository.description.toLowerCase().contains(filters.toLowerCase()) ?: true
+                        || if( repository.description == null ) "".contains(filters.toLowerCase()) else repository.description!!.toLowerCase().contains(filters.toLowerCase()) ?: false
             }
         }
     }

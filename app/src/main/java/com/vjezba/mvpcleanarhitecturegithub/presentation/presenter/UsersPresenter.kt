@@ -14,16 +14,4 @@ class UsersPresenter(private val githubInteractor: GithubInteractor) : GithubCon
     override fun startToDisplayUserDetailsInBrowser( userHtmlLink: String) {
         view?.showUserDetailInExternalBrowser(userHtmlLink)
     }
-
-    /*suspend fun getUsersAsync(users: String) {
-        view?.showProgress()
-        when (val result = githubInteractor.getUsers(users)) {
-            is Result.Success -> view?.showUserDetailInExternalBrowser(result.data*//* .map { it.mapToMainReponseItem() }*//*)
-            is Result.Error ->
-                result.throwable.message?.let {
-                    view?.showMessage(it)
-                }
-        }
-        view?.hideProgress()
-    }*/
 }
