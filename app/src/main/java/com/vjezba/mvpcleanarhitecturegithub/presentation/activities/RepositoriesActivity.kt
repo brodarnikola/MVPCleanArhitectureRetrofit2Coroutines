@@ -2,6 +2,7 @@ package com.vjezba.mvpcleanarhitecturegithub.presentation.activities
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vjezba.domain.entities.Repository
 import com.vjezba.domain.entities.RepositoryDetails
+import com.vjezba.domain.entities.RepositoryOwnerDetails
 import com.vjezba.domain.usecase.GithubContract
 import com.vjezba.mvpcleanarhitecturegithub.R
 import com.vjezba.mvpcleanarhitecturegithub.presentation.`interface`.RepositorySearchInterface
@@ -55,7 +57,9 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories)
         githubPresenter.attachView( this )
-        repositoryAdapter = RepositoryAdapter( mutableListOf<RepositoryDetails>(), mutableListOf<RepositoryDetails>())
+        repositoryAdapter = RepositoryAdapter( mutableListOf<RepositoryDetails>(),
+            { userDetails: RepositoryOwnerDetails -> setUserDetailsClickListener(userDetails) },
+            { repositoryDetails: RepositoryDetails -> setRepositoryDetailsClickListener( repositoryDetails ) }  )
         repository_list.apply {
             layoutManager = repositoryLayoutManager
             adapter = repositoryAdapter
@@ -110,30 +114,18 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
             })
     }
 
-    fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    private fun setRepositoryDetailsClickListener(repositoryDetails: RepositoryDetails) {
+        // budem pingao
     }
 
-    private fun fitlerRepositories() {
-        val filteredRepositories = applyFilter(repositoryList)
-        repositoryAdapter.updateDevices(filteredRepositories)
-        textCurrentLoadedData.setText("Current loaded data: ${repositoryAdapter.getItems().size}/${repositoryTotalCount}")
-    }
-
-    private fun applyFilter(repository: List<RepositoryDetails>): List<RepositoryDetails> {
-        return if (filterText.isEmpty()) {
-            filterTextEdited = false
-            repository
-        } else {
-            filterTextEdited = true
-            val filters = filterText
-            repository.filter { repository ->
-                repository.name.toLowerCase().contains(filters.toLowerCase())
-                        || repository.owner.login.toLowerCase().contains(filters.toLowerCase())
-                        || if( repository.description == null ) "".contains(filters.toLowerCase()) else repository.description.toLowerCase().contains(filters.toLowerCase()) ?: true
-            }
-        }
+    private fun setUserDetailsClickListener(userDetails: RepositoryOwnerDetails) {
+        val intent = Intent( this, UsersActivity::class.java )
+        intent.putExtra("login", userDetails.login)
+        intent.putExtra("avatar_url", userDetails.avatar_url)
+        intent.putExtra("repos_url", userDetails.repos_url)
+        intent.putExtra("followers_url", userDetails.followers_url)
+        intent.putExtra("site_admin", userDetails.site_admin)
+        startActivity(intent)
     }
 
     override fun setRepository(repository: Repository) {
@@ -176,5 +168,31 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
         githubPresenter.getRepositories(keyword, sort, order, showOtherData)
     }
 
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun fitlerRepositories() {
+        val filteredRepositories = applyFilter(repositoryList)
+        repositoryAdapter.updateDevices(filteredRepositories)
+        textCurrentLoadedData.setText("Current loaded data: ${repositoryAdapter.getItems().size}/${repositoryTotalCount}")
+    }
+
+    private fun applyFilter(repository: List<RepositoryDetails>): List<RepositoryDetails> {
+        return if (filterText.isEmpty()) {
+            filterTextEdited = false
+            repository
+        } else {
+            filterTextEdited = true
+            val filters = filterText
+            repository.filter { repository ->
+                repository.name.toLowerCase().contains(filters.toLowerCase())
+                        || repository.owner.login.toLowerCase().contains(filters.toLowerCase())
+                        || if( repository.description == null ) "".contains(filters.toLowerCase()) else repository.description.toLowerCase().contains(filters.toLowerCase()) ?: true
+            }
+        }
+    }
 
 }

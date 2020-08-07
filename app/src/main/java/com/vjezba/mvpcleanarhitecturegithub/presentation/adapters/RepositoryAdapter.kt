@@ -7,18 +7,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.squareup.picasso.Picasso
 import com.vjezba.domain.entities.RepositoryDetails
+import com.vjezba.domain.entities.RepositoryOwnerDetails
 import com.vjezba.mvpcleanarhitecturegithub.R
 import com.vjezba.mvpcleanarhitecturegithub.presentation.common.ListDiffer
 import kotlinx.android.synthetic.main.repository_list.view.*
 
 
-class RepositoryAdapter(var repositoryList: MutableList<RepositoryDetails>, var repositoryFiltered: MutableList<RepositoryDetails>) : RecyclerView.Adapter<RepositoryAdapter.ViewHolder>() {
-
-    private fun loadIntet() {
-
-    }
+class RepositoryAdapter(var repositoryFiltered: MutableList<RepositoryDetails>,
+                        val userDetailsClickListener: (RepositoryOwnerDetails) -> Unit,
+                        val repositoryDetailsClickListener: (RepositoryDetails) -> Unit )
+    : RecyclerView.Adapter<RepositoryAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val photo: ImageView = itemView.imagePhoto
@@ -40,9 +42,13 @@ class RepositoryAdapter(var repositoryList: MutableList<RepositoryDetails>, var 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = repositoryFiltered[position]
 
-        Picasso.get().load(user.owner.avatar_url)
-                .resize(40, 40).centerCrop()
-                .into(holder.photo)
+        Glide.with(holder.itemView)
+            .load(user.owner.avatar_url)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.error2)
+            .fallback(R.drawable.error2)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(holder.photo)
 
         holder.authorName.text = "Name: " + user.owner.login
         holder.fullName.text = "Repositoriy: " + user.name
@@ -51,8 +57,12 @@ class RepositoryAdapter(var repositoryList: MutableList<RepositoryDetails>, var 
         holder.forksCount.text = "Forks count: " + user.forks
         holder.issueCount.text = "Issue count: " + user.open_issues
 
+        holder.photo.setOnClickListener{
+            userDetailsClickListener(user.owner)
+        }
+
         holder.layoutParent.setOnClickListener{
-            loadIntet()
+            repositoryDetailsClickListener(user)
         }
     }
 
@@ -92,7 +102,7 @@ class RepositoryAdapter(var repositoryList: MutableList<RepositoryDetails>, var 
         return repositoryFiltered.size
     }
 
-    open fun setItems(data: List<RepositoryDetails>) {
+    fun setItems(data: List<RepositoryDetails>) {
         repositoryFiltered.addAll(data)
         notifyDataSetChanged()
     }

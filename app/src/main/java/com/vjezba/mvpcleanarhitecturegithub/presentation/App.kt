@@ -1,9 +1,7 @@
 package com.vjezba.mvpcleanarhitecturegithub.presentation
 
 import android.app.Application
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.vjezba.data.dataModule
 import com.vjezba.domain.coreModule
 import org.koin.android.ext.koin.androidContext
@@ -29,6 +27,3 @@ fun View.show() {
     this.visibility = View.VISIBLE
 }
 
-/*fun ViewGroup.inflateLayout(layoutId: Int, attachToRoot: Boolean = false): View {
-    return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
-}*/
