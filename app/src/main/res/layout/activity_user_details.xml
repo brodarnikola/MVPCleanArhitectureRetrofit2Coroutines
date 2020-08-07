@@ -77,7 +77,7 @@
                 android:text="UserName"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/textFollowersUrl"
-                app:layout_constraintLeft_toRightOf="@+id/textCurrentLoadedData"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivUserImage" />
 
             <TextView
@@ -89,7 +89,7 @@
                 android:text="UserName"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/textSiteAdmin"
-                app:layout_constraintLeft_toRightOf="@+id/textCurrentLoadedData"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textReposUrl" />
 
             <TextView
@@ -100,8 +100,19 @@
                 android:padding="10dp"
                 android:text="UserName"
                 android:textSize="20sp"
-                app:layout_constraintLeft_toRightOf="@+id/textCurrentLoadedData"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textFollowersUrl" />
+
+            <TextView
+                android:id="@+id/texUserLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="User link"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textSiteAdmin" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

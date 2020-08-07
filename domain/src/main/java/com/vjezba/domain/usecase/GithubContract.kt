@@ -1,21 +1,17 @@
 package com.vjezba.domain.usecase
 
-import com.vjezba.domain.entities.MainResponse
 import com.vjezba.domain.entities.Repository
 
 
 interface GithubContract {
 
     interface UserView {
-        fun setUsers(users: MainResponse)
-        fun showMessage(message: String)
-        fun showProgress()
-        fun hideProgress()
+        fun showUserDetailInExternalBrowser( userHtmlLink: String)
     }
 
     interface UserPresenter{
         fun attachView(view: UserView)
-        fun getUsers(users: String)
+        fun startToDisplayUserDetailsInBrowser( userHtmlLink: String)
     }
 
 

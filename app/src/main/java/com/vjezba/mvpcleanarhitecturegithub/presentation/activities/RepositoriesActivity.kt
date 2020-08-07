@@ -125,6 +125,7 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
         intent.putExtra("repos_url", userDetails.repos_url)
         intent.putExtra("followers_url", userDetails.followers_url)
         intent.putExtra("site_admin", userDetails.site_admin)
+        intent.putExtra("html_url", userDetails.html_url)
         startActivity(intent)
     }
 

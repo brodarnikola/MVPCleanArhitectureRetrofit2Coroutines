@@ -9,6 +9,8 @@ data class RepositoryOwnerDetailsDAO(
     val login: String = "",
     @SerializedName("avatar_url")
     val avatar_url: String = "",
+    @SerializedName("html_url")
+    val html_url: String = "",
     @SerializedName("repos_url")
     val repos_url: String = "",
     @SerializedName("followers_url")
@@ -18,5 +20,5 @@ data class RepositoryOwnerDetailsDAO(
 )
 
 fun RepositoryOwnerDetailsDAO.mapToRepositoryOwnerDetails(): RepositoryOwnerDetails {
-    return RepositoryOwnerDetails(login, avatar_url, repos_url, followers_url, site_admin)
+    return RepositoryOwnerDetails(login, avatar_url, html_url, repos_url, followers_url, site_admin)
 }
