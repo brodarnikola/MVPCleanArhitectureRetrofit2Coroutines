@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.vjezba.mvpcleanarhitecturegithub.R
@@ -55,7 +52,9 @@ class SearchRepositoryDialog constructor(val repositoryActivty: RepositoriesActi
                         else -> "desc"
                     }
 
+                    hideKeyboard()
                     repositoryActivty.startSearch(etInsertText.text.toString(), sort, order, false)
+
                     dismiss()
                 }
             }
@@ -67,5 +66,9 @@ class SearchRepositoryDialog constructor(val repositoryActivty: RepositoriesActi
         btnCancel.setOnClickListener {
             dismiss()
         }
+    }
+
+    fun hideKeyboard() {
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
     }
 }

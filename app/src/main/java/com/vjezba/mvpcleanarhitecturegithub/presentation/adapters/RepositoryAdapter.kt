@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.vjezba.mvpcleanarhitecturegithub.R
 import com.vjezba.mvpcleanarhitecturegithub.core.entities.RepositoryDetails
+import com.vjezba.mvpcleanarhitecturegithub.presentation.common.ListDiffer
 import kotlinx.android.synthetic.main.repository_list.view.*
 
 
-class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userListFiltered: MutableList<RepositoryDetails>) : RecyclerView.Adapter<RepositoryAdapter.ViewHolder>() {
+class RepositoryAdapter(var repositoryList: MutableList<RepositoryDetails>, var repositoryFiltered: MutableList<RepositoryDetails>) : RecyclerView.Adapter<RepositoryAdapter.ViewHolder>() {
 
     private fun loadIntet() {
 
@@ -37,7 +38,7 @@ class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userLi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val user = userListFiltered[position]
+        val user = repositoryFiltered[position]
 
         Picasso.get().load(user.owner.avatar_url)
                 .resize(40, 40).centerCrop()
@@ -55,35 +56,47 @@ class RepositoryAdapter(var userList: MutableList<RepositoryDetails>, var userLi
         }
     }
 
+    fun updateDevices(updatedDevices: List<RepositoryDetails>) {
+        val listDiff = ListDiffer.getDiff(
+            repositoryFiltered,
+            updatedDevices,
+            { old, new ->
+                old.description == new.description &&
+                        old.forks == new.forks &&
+                old.name == new.name &&
+                old.owner.login == new.owner.login
+            })
+
+        for (diff in listDiff) {
+            when (diff) {
+                is ListDiffer.DiffInserted -> {
+                    repositoryFiltered.addAll(diff.elements)
+                    notifyItemRangeInserted(diff.position, diff.elements.size)
+                }
+                is ListDiffer.DiffRemoved -> {
+                    //remove devices
+                    for (i in (repositoryFiltered.size - 1) downTo diff.position) {
+                        repositoryFiltered.removeAt(i)
+                    }
+                    notifyItemRangeRemoved(diff.position, diff.count)
+                }
+                is ListDiffer.DiffChanged -> {
+                    repositoryFiltered[diff.position] = diff.newElement
+                    notifyItemChanged(diff.position)
+                }
+            }
+        }
+    }
+
     override fun getItemCount(): Int {
-        return userListFiltered.size
+        return repositoryFiltered.size
     }
 
     open fun setItems(data: List<RepositoryDetails>) {
-        userList = ArrayList(data)
-        userListFiltered.addAll(data)
+        repositoryFiltered.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun getItems() = userListFiltered
-
-    /*fun clear() {
-        userList.clear()
-        userListFiltered.clear()
-        notifyDataSetChanged()
-    }
-
-    fun addAll(list: List<RepositoryDetails>) {
-        userList.addAll(list)
-        userListFiltered.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    fun add(user: RepositoryDetails) {
-        userList.add(user)
-        userListFiltered.add(user)
-        notifyDataSetChanged()
-    }*/
-
+    fun getItems() = repositoryFiltered
 
 }
