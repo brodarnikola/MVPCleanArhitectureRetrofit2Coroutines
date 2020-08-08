@@ -8,6 +8,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import com.vjezba.domain.Result
+import com.vjezba.domain.entities.RepositoryDetails
 
 class RepositoryPresenter(private val githubInteractor: GithubInteractor) : GithubContract.RepositoryPresenter,
     CoroutineScope {
@@ -50,4 +51,27 @@ class RepositoryPresenter(private val githubInteractor: GithubInteractor) : Gith
         }
         view?.hideProgress()
     }
+
+
+    override fun filterRepositories(
+        filterRepositoryText: String,
+        repositoryList: MutableList<RepositoryDetails>
+    ) {
+        val filteredRepositoryList = if (filterRepositoryText == "") {
+            repositoryList
+        } else {
+            repositoryList.filter { repository ->
+                repository.name?.toLowerCase()?.contains(filterRepositoryText.toLowerCase()) ?: false
+                        || repository.owner.login.toLowerCase().contains(filterRepositoryText.toLowerCase())
+                        || if( repository.description == null ) "".contains(filterRepositoryText.toLowerCase()) else repository.description!!.toLowerCase().contains(filterRepositoryText.toLowerCase()) ?: false
+            }
+        }.toMutableList()
+        view?.setFilteredRepositories(filteredRepositoryList)
+    }
+
+    override fun isNewSearchNewQueryForRepositoriesStarted(showOtherData: Boolean) {
+        if( !showOtherData )
+            view?.clearAdapterThatHasOldSearchData()
+    }
+
 }

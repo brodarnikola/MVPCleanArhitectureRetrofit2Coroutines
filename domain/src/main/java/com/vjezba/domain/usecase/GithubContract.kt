@@ -8,15 +8,19 @@ interface GithubContract {
 
     // repositories screen
     interface RepositoryView {
-        fun setRepository(repository: Repository)
-        fun showMessage(message: String)
         fun showProgress()
         fun hideProgress()
+        fun showMessage(message: String)
+        fun setRepository(repository: Repository)
+        fun setFilteredRepositories(repositoryList: MutableList<RepositoryDetails>)
+        fun clearAdapterThatHasOldSearchData()
     }
 
     interface RepositoryPresenter{
         fun attachView(view: RepositoryView)
         fun getRepositories(repository: String, sort: String, order: String, showOtherData: Boolean)
+        fun filterRepositories(filterRepositoryText: String, repositoryList: MutableList<RepositoryDetails>)
+        fun isNewSearchNewQueryForRepositoriesStarted(showOtherData: Boolean)
     }
 
 

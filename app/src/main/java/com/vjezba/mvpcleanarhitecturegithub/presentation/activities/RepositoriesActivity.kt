@@ -43,10 +43,6 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
 
     val repositoryList: MutableList<RepositoryDetails> = mutableListOf()
 
-    private var filterText: String = ""
-    private var filterTextEdited: Boolean = false
-
-    private var nextPage : Boolean = false
     var loading = false
 
     var keyword: String = ""
@@ -81,8 +77,7 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
             }
 
             override fun onTextChanged(text: CharSequence, start: Int, before: Int, count: Int) {
-                filterText = text.trim().toString().toUpperCase(Locale.getDefault())
-                fitlerRepositories()
+                githubPresenter.filterRepositories(text.trim().toString().toUpperCase(Locale.getDefault()), repositoryList)
             }
         })
 
@@ -138,7 +133,6 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
         repositoryTotalCount = repository.total_count
         textTotalRepository.setText("Total repository filtered by search: ${repository.total_count}")
         textCurrentLoadedData.setText("Current loaded data: ${repositoryAdapter.getItems().size}/${repository.total_count}")
-        nextPage = true
         loading = false
         if( disableUserActionDialog.isAdded || disableUserActionDialog.isVisible )
             disableUserActionDialog.dismiss()
@@ -146,6 +140,9 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
 
     override fun showMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        if( disableUserActionDialog.isAdded || disableUserActionDialog.isVisible )
+            disableUserActionDialog.dismiss()
+        loading = false
     }
 
     override fun showProgress() {
@@ -162,40 +159,26 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
         keyword = mKeyword
         sort = mSort
         order = mOrder
-
-        if( repositoryAdapter.getItems().isNotEmpty() && !showOtherData ) {
-            repositoryAdapter.notifyItemRangeRemoved(0, repositoryAdapter.getItems().size)
-            repositoryAdapter.getItems().clear()
-            repositoryList.clear()
-        }
+ 
+        githubPresenter.isNewSearchNewQueryForRepositoriesStarted(showOtherData)
         githubPresenter.getRepositories(keyword, sort, order, showOtherData)
     }
 
+    override fun clearAdapterThatHasOldSearchData() {
+        repositoryAdapter.notifyItemRangeRemoved(0, repositoryAdapter.getItems().size)
+        repositoryAdapter.getItems().clear()
+        repositoryList.clear()
+    }
 
     fun Context.hideKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun fitlerRepositories() {
-        val filteredRepositories = applyFilter(repositoryList)
-        repositoryAdapter.updateDevices(filteredRepositories)
+    override fun setFilteredRepositories(repositoryList: MutableList<RepositoryDetails>) {
+        repositoryAdapter.updateDevices(repositoryList)
         textCurrentLoadedData.setText("Current loaded data: ${repositoryAdapter.getItems().size}/${repositoryTotalCount}")
     }
 
-    private fun applyFilter(repository: List<RepositoryDetails>): List<RepositoryDetails> {
-        return if (filterText.isEmpty()) {
-            filterTextEdited = false
-            repository
-        } else {
-            filterTextEdited = true
-            val filters = filterText
-            repository.filter { repository ->
-                repository.name?.toLowerCase()?.contains(filters.toLowerCase()) ?: false
-                        || repository.owner.login.toLowerCase().contains(filters.toLowerCase())
-                        || if( repository.description == null ) "".contains(filters.toLowerCase()) else repository.description!!.toLowerCase().contains(filters.toLowerCase()) ?: false
-            }
-        }
-    }
 
 }
