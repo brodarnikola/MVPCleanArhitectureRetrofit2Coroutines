@@ -9,7 +9,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.squareup.picasso.Picasso
 import com.vjezba.domain.entities.RepositoryDetails
 import com.vjezba.domain.entities.RepositoryOwnerDetails
 import com.vjezba.mvpcleanarhitecturegithub.R

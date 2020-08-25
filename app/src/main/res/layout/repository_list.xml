@@ -15,90 +15,78 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginLeft="10dp"
-        app:layout_constraintHorizontal_weight="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/clRepositoryDetails"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/clRepositoryDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_weight="0.8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/imagePhoto"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textAuthorName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textAuthorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/background_dark"  />
 
-    <TextView
-        android:id="@+id/textRepositoryName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAuthorName" />
+        <TextView
+            android:id="@+id/textRepositoryName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@android:color/background_dark"  />
 
-    <TextView
-        android:id="@+id/textDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRepositoryName" />
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@android:color/background_dark"  />
 
-    <TextView
-        android:id="@+id/textStarGazers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDescription" />
+        <TextView
+            android:id="@+id/textStarGazers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/background_dark"  />
 
-    <TextView
-        android:id="@+id/textForksCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textStarGazers" />
+        <TextView
+            android:id="@+id/textForksCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/background_dark"  />
 
-    <TextView
-        android:id="@+id/textIssueCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textForksCount" />
+        <TextView
+            android:id="@+id/textIssueCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/background_dark"  />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
     <View

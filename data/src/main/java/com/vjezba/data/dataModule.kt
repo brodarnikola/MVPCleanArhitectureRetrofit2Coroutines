@@ -1,52 +1,53 @@
 package com.vjezba.data
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.vjezba.data.network.NetworkServiceFactory
-import com.vjezba.data.network.ServiceFactory
-import com.vjezba.data.service.ServiceProvider
-import com.vjezba.data.service.ServiceProviderImpl
+import com.vjezba.data.environments.Constants
+import com.vjezba.data.service.GithubService
 import com.vjezba.domain.GithubRepository
-import com.vjezba.mvpcleanarhitecturegithub.data.environments.Environment
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.CallAdapter
 import retrofit2.Converter
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
+
+//it creates a module in Koin which would be used by Koin to provide all the dependencies.
 val dataModule = module {
 
-    single {
-        val converterFactory: Converter.Factory = GsonConverterFactory.create()
-        converterFactory
-    }
-
+    //it creates a singleton that can be used across the app as a singular instance.
     single {
         val callAdapterFactory: CallAdapter.Factory = CoroutineCallAdapterFactory()
         callAdapterFactory
     }
 
-    factory { HttpLoggingInterceptor.Level.BODY }
-
-    factory { Environment("https://api.github.com/") }
+    single { GsonConverterFactory.create() as Converter.Factory }
+    single { HttpLoggingInterceptor.Level.BODY }
 
     single {
-        val serviceFactory: ServiceFactory = NetworkServiceFactory(
-            converterFactory = get(),
-            callAdapterFactory = get(),
-            logLevel = get(),
-            environment = get()
-        )
-        serviceFactory
+        OkHttpClient.Builder().apply {
+            addInterceptor(HttpLoggingInterceptor())
+                .callTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+        }.build()
     }
-
-    factory {
-        val serviceProvider: ServiceProvider = ServiceProviderImpl(get())
-        serviceProvider
+    single {
+         Retrofit.Builder()
+            .baseUrl( Constants.RETROFIT_BASE_URL)
+            .client(get())
+            .addConverterFactory(get())
+            .addCallAdapterFactory(get())
+            .build()
     }
+    single { get<Retrofit>().create(GithubService::class.java) }
 
     factory {
         val githubRepository: GithubRepository =
             GithubRepositoryImpl(get())
         githubRepository
     }
+
 }

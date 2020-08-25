@@ -23,7 +23,7 @@ class RepositoryPresenter(private val githubInteractor: GithubInteractor) : Gith
 
     private var job: Job? = null
 
-    override fun attachView(view: GithubContract.RepositoryView) {
+    override fun attachView(view: GithubContract.RepositoryView?) {
         this.view = view
     }
 

@@ -180,5 +180,9 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
         textCurrentLoadedData.setText("Current loaded data: ${repositoryAdapter.getItems().size}/${repositoryTotalCount}")
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        githubPresenter.attachView(null)
+    }
 
 }

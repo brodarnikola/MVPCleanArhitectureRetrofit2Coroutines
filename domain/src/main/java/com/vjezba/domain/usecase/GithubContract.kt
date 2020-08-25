@@ -17,7 +17,7 @@ interface GithubContract {
     }
 
     interface RepositoryPresenter{
-        fun attachView(view: RepositoryView)
+        fun attachView(view: RepositoryView?)
         fun getRepositories(repository: String, sort: String, order: String, showOtherData: Boolean)
         fun filterRepositories(filterRepositoryText: String, repositoryList: MutableList<RepositoryDetails>)
         fun isNewSearchNewQueryForRepositoriesStarted(showOtherData: Boolean)
