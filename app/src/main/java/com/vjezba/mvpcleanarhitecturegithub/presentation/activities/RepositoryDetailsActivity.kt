@@ -84,4 +84,9 @@ class RepositoryDetailsActivity : AppCompatActivity(), GithubContract.Repository
     override fun hideProgress() {
         progressBar.hide()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        githubPresenter.deattachView(null)
+    }
 }

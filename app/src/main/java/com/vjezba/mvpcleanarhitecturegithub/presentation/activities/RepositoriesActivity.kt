@@ -182,7 +182,7 @@ class RepositoriesActivity : AppCompatActivity(), GithubContract.RepositoryView,
 
     override fun onDestroy() {
         super.onDestroy()
-        githubPresenter.attachView(null)
+        githubPresenter.deattachView(null)
     }
 
 }

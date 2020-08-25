@@ -64,5 +64,10 @@ class UsersActivity : AppCompatActivity(), GithubContract.UserView  {
         startActivity(browserIntent)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        githubPresenter.deattachView(null)
+    }
+
 
 }

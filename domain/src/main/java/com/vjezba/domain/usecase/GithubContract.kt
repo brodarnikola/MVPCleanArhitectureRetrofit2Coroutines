@@ -17,7 +17,8 @@ interface GithubContract {
     }
 
     interface RepositoryPresenter{
-        fun attachView(view: RepositoryView?)
+        fun attachView(view: RepositoryView)
+        fun deattachView(view: RepositoryView?)
         fun getRepositories(repository: String, sort: String, order: String, showOtherData: Boolean)
         fun filterRepositories(filterRepositoryText: String, repositoryList: MutableList<RepositoryDetails>)
         fun isNewSearchNewQueryForRepositoriesStarted(showOtherData: Boolean)
@@ -31,6 +32,7 @@ interface GithubContract {
 
     interface UserPresenter{
         fun attachView(view: UserView)
+        fun deattachView(view: UserView?)
         fun startToDisplayUserDetailsInBrowser( userHtmlLink: String)
     }
 
@@ -45,6 +47,7 @@ interface GithubContract {
 
     interface RepositoryDetailsPresenter{
         fun attachView(view: RepositoryDetailsView)
+        fun deattachView(view: RepositoryDetailsView?)
         fun loadRepositoryDetailsById( repositoryId: Long)
     }
 }
