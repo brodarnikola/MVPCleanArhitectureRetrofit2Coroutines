@@ -16,6 +16,8 @@ dependencies {
     //    Okhttp
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3LogInterceptor"
 
+    //    Koin
+    implementation "org.koin:koin-android:$koinVersion"
 }
 
 sourceCompatibility = "1.7"
