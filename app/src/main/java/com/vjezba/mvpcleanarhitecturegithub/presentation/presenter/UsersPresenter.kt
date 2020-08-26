@@ -11,6 +11,10 @@ class UsersPresenter(private val githubInteractor: GithubInteractor) : GithubCon
         this.view = view
     }
 
+    override fun deattachView(view: GithubContract.UserView?) {
+        this.view = view
+    }
+
     override fun startToDisplayUserDetailsInBrowser( userHtmlLink: String) {
         view?.showUserDetailInExternalBrowser(userHtmlLink)
     }

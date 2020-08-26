@@ -22,6 +22,10 @@ class RepositoryDetailsPresenter(private val githubInteractor: GithubInteractor)
         this.view = view
     }
 
+    override fun deattachView(view: GithubContract.RepositoryDetailsView?) {
+        this.view = view
+    }
+
     override  fun loadRepositoryDetailsById(repositoryId: Long) {
         job = launch {
             getRepositoryDetails(repositoryId)
